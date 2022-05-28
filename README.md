@@ -53,7 +53,7 @@ Kde:
 
 Ansible playbook vytváří VM v GCP na které pomocí dvou rolí instaluje docker a docker-compose a následně provede deployment a základní konfiguraci RabbitMQ s vytvořením front.
 
-Ansible playbook [zde](https://gitlab.com/petr-soulek/sv-0001/-/tree/main/ANSIBLE)
+Ansible playbook [zde](https://github.com/3RX0/sv-0001/tree/main/ANSIBLE)
 
 - Start with `ansible-playbook main.yml -u sa_113675051069048240838`
   - Note: GCP Service account file.json není přiložen !!! 
@@ -63,8 +63,8 @@ Ansible playbook [zde](https://gitlab.com/petr-soulek/sv-0001/-/tree/main/ANSIBL
 
 V rámci scriptu listmq.sh dojde k dotazu na listování front na RabbitMQ API, výstup je pársován nástrojem `jq` pro získání požadovaných dat a zároveň jsou odchyceny packety a zapsány v binárním formátu do složky `./packet-capture` dle data a času spuštění.
 
-Script [zde]()
+Script [zde](https://github.com/3RX0/sv-0001/blob/main/listmq.sh)
 
 - Start with **`listmq.sh -h`**
 
-Výstup z tcpdump [zde]()
+Výstupy z tcpdump [zde](https://github.com/3RX0/sv-0001/tree/main/packet-capture)

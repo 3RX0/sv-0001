@@ -20,4 +20,8 @@
     - Adding public ssh key to service account
    
       `> gcloud compute os-login ssh-keys add –key-file=ssh-key-ansible-sa.pub`
-4. Run `ansible-playbook` with param `-u sa_${SA_UID}` SA_UID can be found in google cloud console in SA detail
+
+4. Ansible playbook contains of `main.yml` importing two resources `rabbitNode.yml` and `gcp-firewall.yml` setting up GCP VM and GCP Firewall respectively. RabbitMQ Node is deployed on VM via two roles configuring docker and docker compose and deploying and configuring RabbitMQ together with queues creation.
+5. Run `ansible-playbook` with param `-u sa_${SA_UID}` SA_UID can be found in google cloud console in SA detail.
+
+   `ansible-playbook main.yml -u sa_113675051069048240838`
