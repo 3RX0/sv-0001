@@ -15,6 +15,7 @@ print_help () {
   cat << EOF
 USAGE: listmq.sh [OPTION]
 Options:
+  -h Print help
   -u RabbitMQ username [admin]
   -p RabbitMQ password [admin]
   -H RabbitMQ hostname or IP [localhost]
@@ -75,7 +76,7 @@ done
 #    this is buffered on all platforms, including Windows.
 # -w Write raw packets to file.
 # -n No IP/Hostname translations
-tcpdump -uN host ${RBT_HOST} and port ${RBT_PORT} -w ${TCPD_OUTPUT_PATH}/${TCPD_OUTPUT_FILE} > /dev/null 2>&1 &
+tcpdump -Un host ${RBT_HOST} and port ${RBT_PORT} -w ${TCPD_OUTPUT_PATH}/${TCPD_OUTPUT_FILE} > /dev/null 2>&1 &
 sleep 1
 
 # Connect to RabbitMQ and get queues and parse them through jq creating desired objects
@@ -85,6 +86,6 @@ curl \
 --user ${RBT_USERNAME}:${RBT_PASSWORD} \
 --url http://${RBT_HOST}:${RBT_PORT}/api/queues | jq '.[] | {name: .name, type: .type}'
 
-# Terminate packet capture
+# Terminate packet capture @todo: Set tcpdump parameters in VARs so it hasn't to be edited twice on init/kill
 sleep 1
-kill -2 $(pgrep -f "tcpdump -uN host ${RBT_HOST} and port ${RBT_PORT} -w ${TCPD_OUTPUT_PATH}/${TCPD_OUTPUT_FILE}")
+kill -2 $(pgrep -f "tcpdump -Un host ${RBT_HOST} and port ${RBT_PORT} -w ${TCPD_OUTPUT_PATH}/${TCPD_OUTPUT_FILE}")
