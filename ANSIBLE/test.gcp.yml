@@ -1,0 +1,6 @@
+plugin: gcp_compute
+projects:
+  - sv-0001
+auth_kind: serviceaccount
+service_account_file: "/home/petr/SV/gcp-keys/sv-0001-ae57ae08ffd1.json"
+

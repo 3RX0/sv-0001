@@ -1,0 +1,43 @@
+---
+# Ansible playbook to deploy and configure not-persistent RabbitMQ via docker-compose
+
+- name: Copy rabbitmq docker compose to machine
+  copy: src=rabbitmq.yaml dest=/opt/docker-compose.yml
+
+- name: Create and start services
+  community.docker.docker_compose:
+    project_src: /opt/
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+- name: Run `docker-compose up` again
+  community.docker.docker_compose:
+    project_src: /opt/
+    build: no
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+- ansible.builtin.assert:
+    that: "not output.changed "
+
+# Wait for rabbit and Configure rabbitmq queues
+- name: Wait for Rabbit to be available
+  wait_for: delay=5 sleep=5 host=127.0.0.1 port=15672 state=started timeout=100
+
+- name: Download rabbit-cli from running container
+  get_url:
+    url : http://127.0.0.1:15672/cli/rabbitmqadmin
+    dest: /usr/local/bin/rabbitmqadmin
+    mode: 'u+x,g+x'
+
+- name: Set 3 testing queues
+  ansible.builtin.shell:
+    cmd: "{{ item }}"
+  with_items:
+    - rabbitmqadmin declare queue name=queue-1 -u {{ rabbit_user }} -p {{ rabbit_password }}
+    - rabbitmqadmin declare queue name=queue-2 -u {{ rabbit_user }} -p {{ rabbit_password }}
+    - rabbitmqadmin declare queue name=queue-3 -u {{ rabbit_user }} -p {{ rabbit_password }}

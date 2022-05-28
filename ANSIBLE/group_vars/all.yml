@@ -1,0 +1,15 @@
+# GCP related and VM vars
+gcp_project: sv-0001
+gcp_cred_kind: serviceaccount
+gcp_cred_file: "/home/petr/SV/gcp-keys/sv-0001-ae57ae08ffd1.json"
+zone: "europe-west1-b"
+region: "europe-west1"
+machine_type: "e2-small"
+image: "projects/debian-cloud/global/images/debian-10-buster-v20220519"
+machine_name: "rabbitnode"
+
+ansible_server_ip: "188.75.153.145/32"
+
+# Rabbit server
+rabbit_user: "test-user"
+rabbit_password: "test-user"

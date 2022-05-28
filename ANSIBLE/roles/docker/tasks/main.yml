@@ -1,0 +1,50 @@
+---
+# Ansible playbook to install docker and docker-compose
+
+- name: Install aptitude
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+
+- name: Install required system packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    state: latest
+    update_cache: true
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian buster stable
+    state: present
+
+# Experimenting with items list
+- name: Update apt and install docker-ce and docker-compose
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
+  with_items:
+    - docker-ce
+    - docker-compose-plugin
+
+# Solving issue with pip install docker-compose not passing due to module version mismatch in dependency
+- name: Upgrade pip
+  ansible.builtin.shell:
+    cmd: pip3 install --upgrade pip
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker-compose
