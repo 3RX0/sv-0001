@@ -25,10 +25,11 @@ Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (a ne tři poml
 
 Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (tedy nic jiného):
 
-`grep -P '^(?<!-)-{2}(?!-)$' ./UNIX/testData`
+`grep -P '^\-{2}$' ./UNIX/testData`
 
 Kde:
  - `-P, --perl-regexp`  PATTERNS are Perl regular expressions (Pro možnost použití negative lookbehind a lookahead)
+ - `-E, --extended-regexp `  PATTERNS are extended regular expressions (Pro možnost použití "{}")
 
 **2.** 
 
