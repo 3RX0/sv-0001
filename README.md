@@ -21,18 +21,14 @@ V zadání vnímám jistou ambivalenci definice
 
 Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (a ne tři pomlčky a ne jedna pomlčka kdekoliv na řádce)
 
-`grep "\-\-" ./UNIX/testData`
+`grep -P '(?<!-)-{2}(?!-)' ./UNIX/testData`
 
 Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (tedy nic jiného):
 
-`grep "^\-\-$" ./UNIX/testData`
-
-Pro elegantnější řešení s využitím regular expressions
-
-`grep -E "\-{2}" ./UNIX/testData`
+`grep -P '^(?<!-)-{2}(?!-)$' ./UNIX/testData`
 
 Kde:
-  - "`-E`" parametr pro využití extended regular expressions 
+ - `-P, --perl-regexp`  PATTERNS are Perl regular expressions (Pro možnost použití negative lookbehind a lookahead)
 
 **2.** 
 
