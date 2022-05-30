@@ -15,9 +15,7 @@
 
 # Solution:
 ## UNIX
-**1.** 
-
-V zadání vnímám jistou ambivalenci definice
+**1.**
 
 Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (a ne tři pomlčky a ne jedna pomlčka kdekoliv na řádce)
 
@@ -25,7 +23,7 @@ Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (a ne tři poml
 
 Pro řešení "právě dvě pomlčky za sebou na jedné řádce" (tedy nic jiného):
 
-`grep -P '^\-{2}$' ./UNIX/testData`
+`grep -E '^\-{2}$' ./UNIX/testData`
 
 Kde:
  - `-P, --perl-regexp`  PATTERNS are Perl regular expressions (Pro možnost použití negative lookbehind a lookahead)
